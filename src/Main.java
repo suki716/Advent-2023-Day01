@@ -26,11 +26,82 @@ public class Main {
         // do part 1
         // find the first digit and last digit of the String
         // return the number put together
-        return 0;
+        String firstNum = "";
+        String lastNum = "";
+        for (int i = 0; i < line.length(); i++) {
+            if (Character.isDigit(line.charAt(i))) {
+                if (firstNum.equals("")) {
+                    firstNum = String.valueOf(line.charAt(i));
+                } else {
+                    lastNum = String.valueOf(line.charAt(i));
+                }
+            }
+        }
+        if (lastNum.equals("")) {
+            lastNum = firstNum;
+        }
+        return Integer.parseInt(firstNum + lastNum);
     }
 
     public static int getPartTwoNumber(String line) {
-        // do part 2
+        String firstNum = "";
+        String lastNum = "";
+        for (int i = 0; i < line.length(); i++) {
+            if (Character.isDigit(line.charAt(i))) {
+                if (firstNum.equals("")) {
+                    firstNum = String.valueOf(line.charAt(i));
+                } else {
+                    lastNum = String.valueOf(line.charAt(i));
+                }
+            } else {
+                for (int j = i + 3; j < line.length(); j++) {
+                    System.out.println(line.substring(i, j));
+                    if (getNumFromWord(line.substring(i, j)) != 0) {
+                        if (firstNum.equals("")) {
+                            firstNum = String.valueOf(getNumFromWord(line.substring(i, j)));
+                            System.out.println(firstNum);
+                        } else {
+                            lastNum = String.valueOf(getNumFromWord(line.substring(i, j)));
+                        }
+                        i += line.substring(i, j).length();
+                    }
+                    if (line.substring(i, j).length() > 5) {
+                        break;
+                    }
+                }
+            }
+        }
+        return Integer.parseInt(firstNum + lastNum);
+    }
+
+    public static int getNumFromWord(String word) {
+        if (word.equals("one")) {
+            return 1;
+        }
+        if (word.equals("two")) {
+            return 2;
+        }
+        if (word.equals("three")) {
+            return 3;
+        }
+        if (word.equals("four")) {
+            return 4;
+        }
+        if (word.equals("five")) {
+            return 5;
+        }
+        if (word.equals("six")) {
+            return 6;
+        }
+        if (word.equals("seven")) {
+            return 7;
+        }
+        if (word.equals("eight")) {
+            return 8;
+        }
+        if (word.equals("nine")) {
+            return 9;
+        }
         return 0;
     }
 
