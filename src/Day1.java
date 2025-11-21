@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
-public class Main {
+public class Day1 {
     public static void main(String[] args) {
         //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
         // to see how IntelliJ IDEA suggests fixing it.
@@ -14,7 +14,7 @@ public class Main {
         int partOneAnswer = 0;
         int partTwoAnswer = 0;
         for (int i = 0; i < lines.size(); i++) {
-            partOneAnswer += getPartOneNumber(lines.get(i));
+            //partOneAnswer += getPartOneNumber(lines.get(i));
             partTwoAnswer += getPartTwoNumber(lines.get(i));
         }
 
@@ -54,22 +54,23 @@ public class Main {
                     lastNum = String.valueOf(line.charAt(i));
                 }
             } else {
-                for (int j = i + 3; j < line.length(); j++) {
-                    System.out.println(line.substring(i, j));
+                for (int j = i + 3; j < line.length() + 1; j++) {
                     if (getNumFromWord(line.substring(i, j)) != 0) {
                         if (firstNum.equals("")) {
                             firstNum = String.valueOf(getNumFromWord(line.substring(i, j)));
-                            System.out.println(firstNum);
                         } else {
                             lastNum = String.valueOf(getNumFromWord(line.substring(i, j)));
                         }
-                        i += line.substring(i, j).length();
+                        break;
                     }
-                    if (line.substring(i, j).length() > 5) {
+                    if (line.substring(i, j).length() > 6) {
                         break;
                     }
                 }
             }
+        }
+        if (lastNum.equals("")) {
+            lastNum = firstNum;
         }
         return Integer.parseInt(firstNum + lastNum);
     }
