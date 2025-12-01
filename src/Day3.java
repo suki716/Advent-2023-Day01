@@ -6,6 +6,7 @@ public class Day3 {
         int sum = 0;
 
         for (int i = 0; i < lines.size(); i++) {
+            System.out.println(getNum(lines.get(i), i, lines));
             sum += getNum(lines.get(i), i, lines);
         }
 
@@ -13,12 +14,12 @@ public class Day3 {
     }
 
     public static int getNum(String str, int idx, ArrayList<String> lines) {
-        System.out.println(str);
+        int sum = 0;
         for (int i = 0; i < str.length(); i++) {
             int idx2 = i + 1;
             int num = 0;
+            boolean end = false;
             for (int j = idx2; j < str.length(); j++) {
-                boolean end = false;
                 if (!Character.isDigit(str.charAt(j-1))) {
                     idx2 = j+1;
                     end = true;
@@ -32,29 +33,29 @@ public class Day3 {
                             from -= 1;
                         }
                         if (idx != 0) {
-                            String above = lines.get(i-1).substring(from, idx2);
+                            String above = lines.get(idx-1).substring(from, idx2);
                             if (checkValid(above)) {
-                                System.out.println("above reached");
-                                return num;
+                                sum += num;
                             }
                         }
                         if (idx < lines.size()) {
                             String below = lines.get(i+1).substring(from, idx2);
                             if (checkValid(below)) {
-                                System.out.println("below reached");
-                                return num;
+                                sum += num;
                             }
                         }
-                        if (checkValid(lines.get(i).substring(idx2, idx2 + 1))) {
-                            System.out.println("right checked");
-                            return num;
+                        if (idx2 < str.length()) {
+                            if (checkValid(str.substring(idx2, idx2 + 1))) {
+                                sum += num;
+                            }
                         }
+                        end = false;
+                        num = 0;
                     }
-                    num = 0;
                 }
             }
         }
-        return 0;
+        return sum;
     }
 
     public static boolean checkValid(String str) {
