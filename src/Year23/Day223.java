@@ -1,8 +1,8 @@
 import java.util.ArrayList;
 
-public class Day2 {
+public class Day223 {
     public static void main(String[] args) {
-        ArrayList<String> lines = Day1.getFileData("src/data");
+        ArrayList<String> lines = Day123.getFileData("src/data");
         int sum = 0;
         int sum2 = 0;
         for (int i = 0; i < lines.size(); i++) {
