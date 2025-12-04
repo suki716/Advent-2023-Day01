@@ -3,12 +3,8 @@ import java.util.ArrayList;
 public class Day2 {
     public static void main(String[] args) {
         ArrayList<String> lines = Day123.getFileData("src/data");
-        long sum = 0;
-        for (int i = 0; i < lines.size(); i++) {
-            //sum += part1(lines.get(i));
-            sum += part2(lines.get(i));
-        }
-        System.out.println(sum);
+        //sum += part1(lines.get(i));
+        System.out.println(part2(lines.getFirst()));
     }
 
     public static long part2(String str) {
@@ -20,21 +16,34 @@ public class Day2 {
             long second = Long.parseLong(str2.substring(idx+1));
             while (firstID <= second) {
                 String check = Long.toString(firstID);
-                for (int i = 1; i < check.length(); i++) {
-                    String num = check.substring(0, i);
-                    boolean add = true;
-                    for (int j = i; j < check.length(); j+= num.length()) {
-                        if (j + num.length() > check.length()) {
-                            add = false;
-                            break;
+                boolean allSame = true;
+                for (int i = 0; i < check.length() - 1; i++) {
+                    if (check.charAt(i) != check.charAt(i+1)) {
+                        allSame = false;
+                    }
+                }
+                if (!allSame) {
+                    for (int i = 1; i < check.length(); i++) {
+                        String num = check.substring(0, i);
+                        boolean add = true;
+                        for (int j = i; j < check.length(); j+= num.length()) {
+                            if (j + num.length() > check.length()) {
+                                add = false;
+                                break;
+                            }
+                            if (!check.startsWith(num, j)) {
+                                add = false;
+                                break;
+                            }
                         }
-                        if (!check.startsWith(num, j)) {
-                            add = false;
-                            break;
+                        if (add) {
+                            System.out.println("added: " + firstID);
+                            sum += firstID;
                         }
                     }
-                    if (add) {
-                        System.out.println("added: " + firstID);
+                } else {
+                    if (check.length() >= 2) {
+                        System.out.println("added 2: " + firstID);
                         sum += firstID;
                     }
                 }
