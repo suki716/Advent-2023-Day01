@@ -20,20 +20,31 @@ public class Day3 {
             int max = 0;
             int idx = -1;
             for (int i = 0; i < str.length(); i++) {
-                if (Integer.parseInt(str.substring(i, i+1)) > max) {
-                    max = Integer.parseInt(str.substring(i, i+1));
-                    idx = i;
+                boolean in = false;
+                for (int x : idxs) {
+                    if (x == i) {
+                        in = true;
+                        break;
+                    }
+                }
+                if (!in) {
+                    if (Integer.parseInt(str.substring(i, i+1)) >= max) {
+                        max = Integer.parseInt(str.substring(i, i+1));
+                        idx = i;
+                        if (idx < 3) {
+                            i = idx + 1;
+                        }
+                    }
                 }
             }
-            System.out.println(idx);
             idxs.add(idx);
         }
         Collections.sort(idxs);
         String val = "";
         for (int x : idxs) {
-            System.out.println(x);
+            val += str.charAt(x);
         }
-
+        System.out.println(Long.parseLong(val));
         return Long.parseLong(val);
     }
 
