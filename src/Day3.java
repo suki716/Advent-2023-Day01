@@ -16,10 +16,19 @@ public class Day3 {
 
     public static long part2(String str) {
         ArrayList<Integer> idxs = new ArrayList<>();
+        int max2 = 0;
+        int idx2 = -1;
+        for (int i = 0; i < str.length() - 12; i++) {
+            if (Integer.parseInt(str.substring(i, i+1)) > max2) {
+                max2 = Integer.parseInt(str.substring(i, i + 1));
+                idx2 = i;
+            }
+        }
+        idxs.add(idx2);
         while (idxs.size() != 12) {
             int max = 0;
             int idx = -1;
-            for (int i = 0; i < str.length(); i++) {
+            for (int i = idx2 + 1; i < str.length(); i++) {
                 boolean in = false;
                 for (int x : idxs) {
                     if (x == i) {
@@ -31,9 +40,6 @@ public class Day3 {
                     if (Integer.parseInt(str.substring(i, i+1)) >= max) {
                         max = Integer.parseInt(str.substring(i, i+1));
                         idx = i;
-                        if (idx < 3) {
-                            i = idx + 1;
-                        }
                     }
                 }
             }
