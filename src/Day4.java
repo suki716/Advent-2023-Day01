@@ -1,16 +1,40 @@
 import java.util.ArrayList;
 
 public class Day4 {
+    private static ArrayList<String> lines;
+
     public static void main(String[] args) {
-        ArrayList<String> lines = Day123.getFileData("src/data");
+        lines = Day123.getFileData("src/data");
         int sum = 0;
-        for (int i = 0; i < lines.size(); i++) {
-            sum += part1(lines.get(i), i, lines);
+        int val = -1;
+        while (val != 0) {
+            val = 0;
+            for (int i = 0; i < lines.size(); i++) {
+                val += part1(lines.get(i), i);
+            }
+            sum += val;
+            clean();
+//            for (int i = 0; i < lines.size(); i++) {
+//                System.out.println(lines.get(i));
+//            }
+//            System.out.println("---------------");
         }
         System.out.println(sum);
     }
 
-    public static int part1(String str, int idx, ArrayList<String> lines) {
+    public static void clean() {
+        for (int i = 0; i < lines.size(); i++) {
+            for (int j = 0; j < lines.getFirst().length(); j++) {
+                String str = lines.get(i);
+                if (str.charAt(j) == 'x') {
+                    lines.remove(i);
+                    lines.add(i, str.substring(0, j) + "." + str.substring(j+1));
+                }
+            }
+        }
+    }
+
+    public static int part1(String str, int idx) {
         int sum = 0;
         for (int i = 0; i < str.length(); i++) {
             if (str.charAt(i) == '@') {
@@ -36,6 +60,8 @@ public class Day4 {
                 }
                 if (count < 4) {
                     sum++;
+                    String str2 = lines.remove(idx);
+                    lines.add(idx, str2.substring(0, i) + "x" + str2.substring(i+1));
                 }
             }
         }
@@ -45,7 +71,7 @@ public class Day4 {
     public static int countRolls(String str) {
         int count = 0;
         for (int i = 0; i < str.length(); i++) {
-            if (str.charAt(i) == '@') {
+            if (str.charAt(i) == '@' || str.charAt(i) == 'x') {
                 count++;
             }
         }
